@@ -13,6 +13,14 @@ namespace sah_v2
         public const string bPawn = "C:/Users/uif31464/Desktop/chess/Chess_pdt60.png";
         public const string wPawn = "C:/Users/uif31464/Desktop/chess/Chess_plt60.png";
 
+        
+        //public Piece firstB = null;
+
+        public Pawn()
+        {
+
+        }
+
         public Pawn(int i, int j, int color)
         {
             this.PieceLocationI = i;
@@ -23,43 +31,46 @@ namespace sah_v2
         public override void Move(object sender, EventArgs args)         
         {
             var button = sender as Piece;
-            if (button.PieceColor == 1)
-                GetAvailableMovesBlackPawn();
-            if (button.PieceColor == -1)
-                GetAvailableMovesWhitePawn();
             if (first_click)
             {
+                if (button.PieceColor == 1)
+                    GetAvailableMovesBlackPawn(button);
+                if (button.PieceColor == -1)
+                    GetAvailableMovesWhitePawn(button);
                 if (button.Image == null)
                     return;
                 firstB = button;
-                //value = Positions[PieceLocationI, PieceLocationJ];
-                //Positions[PieceLocationI, PieceLocationJ] = 0;
+                firstB.PieceColor = button.PieceColor;
+                firstB.type = button.type;
+                value = Positions[PieceLocationI, PieceLocationJ];
+                Positions[PieceLocationI, PieceLocationJ] = 0;
                 first_click = false;
             }
             else
             {
-                if (A[PieceLocationI, PieceLocationJ] == 1)
+                first_click = true;
+                if (A[button.PieceLocationI, button.PieceLocationJ] == 1)
                 {
                     button.Image = firstB.Image;
                     button.PieceColor = firstB.PieceColor;
                     button.type = firstB.type;
-                    //Positions[PieceLocationI, PieceLocationJ] = value;
+                    Positions[button.PieceLocationI, button.PieceLocationJ] = value;
                     firstB.Image = null;
                     firstB.PieceColor = 0;
-                    firstB.type=0;
-                    //value = 0;
+                    firstB.type = 0;
+                    value = 0;
                 }
                 else
                     return;
-                first_click = true;
             }
+
         }
-        public void GetAvailableMovesBlackPawn()
+        public void GetAvailableMovesBlackPawn(Piece x)
         {
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                     A[i, j] = 0;
-            if (PieceColor == 1)
+            if (x.PieceColor == 1)
             {
                 if (PieceLocationJ == 1 && Positions[PieceLocationI, PieceLocationJ + 2] == 0 && Positions[PieceLocationI, PieceLocationJ + 1] == 0)
                     A[PieceLocationI, PieceLocationJ + 2] = 1;
@@ -74,12 +85,12 @@ namespace sah_v2
                     A[PieceLocationI + 1, PieceLocationJ +1] = 1;
             }
         }
-        public void GetAvailableMovesWhitePawn()
+        public void GetAvailableMovesWhitePawn(Piece x)
         {
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                     A[i, j] = 0;
-            if (PieceColor == 0)
+            if (x.PieceColor == -1)
             {
                 if (PieceLocationJ == 6 && Positions[PieceLocationI, PieceLocationJ - 2] == 0 && Positions[PieceLocationI, PieceLocationJ - 1] == 0)
                     A[PieceLocationI, PieceLocationJ - 2] = 1;

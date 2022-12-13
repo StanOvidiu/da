@@ -12,21 +12,28 @@ namespace sah_v2
         public const string bBishop = "C:/Users/uif31464/Desktop/chess/Chess_bdt60.png";
         public const string wBishop = "C:/Users/uif31464/Desktop/chess/Chess_blt60.png";
 
+        
         public Bishop()
         {
 
+        }
+        public Bishop(int i, int j, int color)
+        {
+            this.PieceLocationI = i;
+            this.PieceLocationJ = j;
+            this.PieceColor = color;
         }
 
         public override void Move(object sender, EventArgs args)
         {
             var button = sender as Piece;
-            if (button.Image == Image.FromFile(bBishop))
-                GetAvailableMovesBlackBishop();
-            if (button.Image == Image.FromFile(wBishop))
-                GetAvailableMovesWhiteBishop();
             if (first_click)
             {
-                if (firstB.Image == null)
+                if(button.PieceColor == 1)
+                    GetAvailableMovesBlackBishop();
+                if (button.PieceColor == -1)
+                    GetAvailableMovesWhiteBishop();
+                if (button.Image == null)
                     return;
                 firstB = button;
                 value = Positions[PieceLocationI, PieceLocationJ];
@@ -35,18 +42,20 @@ namespace sah_v2
             }
             else
             {
-                if (A[PieceLocationI, PieceLocationJ] == 1)
+                first_click = true;
+                if (A[button.PieceLocationI, button.PieceLocationJ] == 1)
                 {
                     button.Image = firstB.Image;
                     button.PieceColor = firstB.PieceColor;
-                    Positions[PieceLocationI, PieceLocationJ] = value;
+                    button.type = firstB.type;
+                    Positions[button.PieceLocationI, button.PieceLocationJ] = value;
                     firstB.Image = null;
                     firstB.PieceColor = 0;
+                    firstB.type = 0;
                     value = 0;
                 }
                 else
                     return;
-                first_click = true;
             }
         }
 

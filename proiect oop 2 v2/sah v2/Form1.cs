@@ -29,6 +29,8 @@ namespace sah_v2
             this.Height = 680;
             this.Text = "chess";
 
+            
+
             for (var i = 0; i < 8; i++)
             {
                 for (var j = 0; j < 8; j++)
@@ -62,9 +64,6 @@ namespace sah_v2
                     }
 
 
-
-
-
                     if (pieces[i, j].type == 1 || pieces[i, j].type == -1)
                     {
                         var x = new Pawn(pieces[i, j].PieceLocationI, pieces[i, j].PieceLocationJ, pieces[i, j].PieceColor);
@@ -72,34 +71,38 @@ namespace sah_v2
                     }
                     else if (pieces[i, j].type == 2 || pieces[i, j].type == -2)
                     {
-                        var x = new Knight();
+                        var x = new Knight(pieces[i, j].PieceLocationI, pieces[i, j].PieceLocationJ, pieces[i, j].PieceColor);
                         pieces[i, j].Click += new EventHandler(x.Move);
                     }
                     else if (pieces[i, j].type == 3 || pieces[i, j].type == -3)
                     {
-                        var x = new Bishop();
+                        var x = new Bishop(pieces[i, j].PieceLocationI, pieces[i, j].PieceLocationJ, pieces[i, j].PieceColor);
                         pieces[i, j].Click += new EventHandler(x.Move);
                     }
                     else if (pieces[i, j].type == 4 || pieces[i, j].type == -4)
                     {
-                        var x = new Rook();
+                        var x = new Rook(pieces[i, j].PieceLocationI, pieces[i, j].PieceLocationJ, pieces[i, j].PieceColor);
                         pieces[i, j].Click += new EventHandler(x.Move);
                     }
                     else if (pieces[i, j].type == 5 || pieces[i, j].type == -5)
                     {
-                        var x = new Queen();
+                        var x = new Queen(pieces[i, j].PieceLocationI, pieces[i, j].PieceLocationJ, pieces[i, j].PieceColor);
                         pieces[i, j].Click += new EventHandler(x.Move);
                     }
                     else if (pieces[i, j].type == 6 || pieces[i, j].type == -6)
                     {
-                        var x = new King();
+                        var x = new King(pieces[i, j].PieceLocationI, pieces[i, j].PieceLocationJ, pieces[i, j].PieceColor);
+                        pieces[i, j].Click += new EventHandler(x.Move);
+                    }
+                    else if (pieces[i, j].type == 0)
+                    {
+                        var x = new Empty(pieces[i,j].PieceLocationI,pieces[i,j].PieceLocationJ);
                         pieces[i, j].Click += new EventHandler(x.Move);
                     }
                 }
             }
             SetImage(pieces);
         }
-
         public void SetImage(Button[,] A)
         {
             A[0, 0].Image = Image.FromFile("C:/Users/uif31464/Desktop/chess/Chess_rdt60.png");

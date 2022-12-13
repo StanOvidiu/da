@@ -48,6 +48,9 @@
     <Compile Include="Bishop.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Empty.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="King.cs">
       <SubType>Component</SubType>
     </Compile>
